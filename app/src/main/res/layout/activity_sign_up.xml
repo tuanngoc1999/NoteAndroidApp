@@ -5,69 +5,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
-
-    <EditText
-        android:id="@+id/txtMail_signUpForm"
+    tools:context=".SignUpActivity">
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="70dp"
-        android:ems="13"
-        android:inputType="textEmailAddress"
-        android:hint="Email" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Sign Up" />
 
-    <EditText
-        android:id="@+id/txtPwd_signUpForm"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="110dp"
-        android:ems="13"
-        android:hint="Password"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteY="248dp" />
-    <EditText
-        android:id="@+id/txtConfirmPwd_signUpForm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="150dp"
-        android:ems="13"
-        android:hint="Conpirm Password"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteY="248dp" />
+        android:layout_marginTop="60dp"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnSignin_signUpForm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="210dp"
-        android:text="Sign in"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="454dp" />
+        <EditText
+            android:id="@+id/txtMail_signUpForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
 
-    <Button
-        android:id="@+id/btnSignUp_signUpForm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="192dp"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="210dp"
-        android:text="Sign up"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="454dp" />
+        <EditText
+            android:id="@+id/txtPwd_signUpForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/txtConfirmPwd_signUpForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:hint="Conpirm Password"
+            android:inputType="textPassword"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <Button
+                android:id="@+id/btnSignin_signUpForm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="30dp"
+                android:text="Sign in" />
+            <Button
+                android:id="@+id/btnSignUp_signUpForm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:text="Sign up" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.example.damh_android.ui.gallery;
+package com.example.damh_android.ui.priority;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,7 +18,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import com.example.damh_android.Object.Gallery;
+
+import com.example.damh_android.Object.Priority;
 import com.example.damh_android.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,35 +35,36 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class GalleryFragment extends Fragment {
-
+public class PriorityFragment extends Fragment {
     ListView listView;
     DatabaseReference rff = FirebaseDatabase.getInstance().getReference();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    List<Gallery> galleryList = new ArrayList<Gallery>();
-    GalleryAdapter galleryAdapter = null;
+    List<Priority> priorityList = new ArrayList<Priority>();
+    PriorityAdapter priorityAdapter = null;
     String uId;
-    FloatingActionButton addGal;
+    FloatingActionButton addPrio;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View root = inflater.inflate(R.layout.fragment_priority, container, false);
         uId = mAuth.getUid();
-        galleryAdapter = new GalleryAdapter();
-        addGal = root.findViewById(R.id.addGal_fragment);
-        addGal.setOnClickListener(new View.OnClickListener() {
+        priorityAdapter = new PriorityAdapter();
+        addPrio = root.findViewById(R.id.addPrio_fragment);
+        addPrio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LayoutInflater inflater = getLayoutInflater();
                 View alertLayout = inflater.inflate(R.layout.dialog_edit_save, null);
                 final EditText etUsername = (EditText) alertLayout.findViewById(R.id.et_Username);
                 AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setTitle("Category Form");
+                alert.setTitle("Priority");
                 alert.setView(alertLayout);
                 alert.setCancelable(true);
                 alert.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
                     }
                 });
                 alert.setNegativeButton("Add", new DialogInterface.OnClickListener() {
@@ -71,24 +73,18 @@ public class GalleryFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String user = etUsername.getText().toString();
                         String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-                        Gallery g = new Gallery(user, mydate);
+                        Priority p = new Priority(user, mydate);
                         String path = user + mydate;
-                        rff.child("Users").child(uId).child("gallery").child(path).setValue(g).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful())
-                                    Toast.makeText(getContext(), "Successfully!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        rff.child("Users").child(uId).child("priority").child(path).setValue(p);
+                        Toast.makeText(getContext(), "Successfully", Toast.LENGTH_SHORT).show();
                     }
                 });
                 AlertDialog dialog = alert.create();
                 dialog.show();
-
             }
         });
-        listView = root.findViewById(R.id.lvGalleryFrag);
-        listView.setAdapter(galleryAdapter);
+        listView = root.findViewById(R.id.lvPriorityFrag);
+        listView.setAdapter(priorityAdapter);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -98,7 +94,7 @@ public class GalleryFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String choised = choise[which];
-                        if(choised.equals("Edit")) {
+                        if(choised.equals("Edit")){
                             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
                             final EditText input = new EditText(getContext());
                             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -106,26 +102,22 @@ public class GalleryFragment extends Fragment {
                                     LinearLayout.LayoutParams.MATCH_PARENT);
                             input.setLayoutParams(lp);
                             alertDialog.setView(input);
-                            alertDialog.setTitle("Enter new name!");
+                            alertDialog.setTitle("Enter new priority");
                             alertDialog.setPositiveButton("YES",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             String newName = input.getText().toString();
                                             if (newName.isEmpty()) {
-                                                input.setError("Enter category name");
+                                                input.setError("Enter priority name");
                                                 input.requestFocus();
                                             }
                                             else{
-                                                Gallery g = galleryList.get(position);
-                                                String path = g.getName()+g.getCreatDate();
-                                                FirebaseDatabase.getInstance().getReference().child("Users").child(uId).child("gallery").child(path).removeValue();
-                                                g = new Gallery(newName, g.getCreatDate());
-                                                FirebaseDatabase.getInstance().getReference().child("Users").child(uId).child("gallery").child(newName+g.getCreatDate()).setValue(g).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        Toast.makeText(getContext(), "Successfully!", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
+                                                Priority priority = priorityList.get(position);
+                                                String path = priority.getName()+priority.getCreatDate();
+                                                FirebaseDatabase.getInstance().getReference().child("Users").child(uId).child("priority").child(path).removeValue();
+                                                priority = new Priority(newName, priority.getCreatDate());
+                                                FirebaseDatabase.getInstance().getReference().child("Users").child(uId).child("priority").child(newName+priority.getCreatDate()).setValue(priority);
+
                                             }
                                         }
                                     });
@@ -141,15 +133,18 @@ public class GalleryFragment extends Fragment {
                         }
                         else if(choised.equals("Delete"))
                         {
-                            Gallery g = galleryList.get(position);
-                            String path = g.getName() + g.getCreatDate();
-                            rff.child("Users").child(uId).child("gallery").child(path).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            Priority p = priorityList.get(position);
+                            String path = p.getName() + p.getCreatDate();
+                            rff.child("Users").child(uId).child("priority").child(path).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(getContext()," Deleted!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext()," Deleted!",
+                                            Toast.LENGTH_SHORT).show();
+
                                 }
                             });
                         }
+
                     }
                 });
                 AlertDialog alert = b.create();
@@ -159,20 +154,22 @@ public class GalleryFragment extends Fragment {
         });
         return root;
     }
+
+
     @Override
     public void onStart() {
         super.onStart();
         rff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                galleryList.clear();
-                for(DataSnapshot dataSnapshot : snapshot.child("Users").child(uId).child("gallery").getChildren()) {
+                priorityList.clear();
+                for(DataSnapshot dataSnapshot : snapshot.child("Users").child(uId).child("priority").getChildren()) {
                     String name = dataSnapshot.child("name").getValue().toString();
                     String cDate = dataSnapshot.child("creatDate").getValue().toString();
-                    Gallery g = new Gallery(name, cDate);
-                    galleryList.add(g);
+                    Priority priority = new Priority(name, cDate);
+                    priorityList.add(priority);
                 }
-                galleryAdapter.notifyDataSetChanged();
+                priorityAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -182,22 +179,23 @@ public class GalleryFragment extends Fragment {
         });
 
     }
-    class GalleryAdapter extends ArrayAdapter {
+    class PriorityAdapter extends ArrayAdapter {
 
-        public GalleryAdapter(@NonNull Context context, int resource) {
+        public PriorityAdapter(@NonNull Context context, int resource) {
             super(context, resource);
         }
 
-        public GalleryAdapter() {
-            super(getActivity(),android.R.layout.simple_list_item_1, galleryList);
+        public PriorityAdapter() {
+            super(getActivity(),android.R.layout.simple_list_item_1, priorityList);
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View row = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.row, null);
-            Gallery g = galleryList.get(position);
-            ((TextView)row.findViewById(R.id.name_row)).setText(g.getName());
-            ((TextView)row.findViewById(R.id.creatDate_row)).setText(g.getCreatDate());
+            Priority priority = priorityList.get(position);
+            ((TextView)row.findViewById(R.id.name_row)).setText(priority.getName());
+            ((TextView)row.findViewById(R.id.creatDate_row)).setText(priority.getCreatDate());
+
             return row;
         }
     }

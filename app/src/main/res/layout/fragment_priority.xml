@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.gallery.GalleryFragment">
+    tools:context=".ui.priority.PriorityFragment">
         <ListView
-            android:id="@+id/lvGalleryFrag"
+            android:id="@+id/lvPriorityFrag"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addGal_fragment"
+        android:id="@+id/addPrio_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.damh_android.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="Dashboard"
         tools:layout="@layout/fragment_home" />
 
     <fragment
@@ -18,8 +18,32 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.damh_android.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_priority"
+        android:name="com.example.damh_android.ui.priority.PriorityFragment"
+        android:label="Priority"
+        tools:layout="@layout/fragment_priority" />
+
+    <fragment
+        android:id="@+id/nav_status"
+        android:name="com.example.damh_android.ui.status.StatusFragment"
+        android:label="Status"
+        tools:layout="@layout/fragment_status" />
+
+    <fragment
+        android:id="@+id/nav_note"
+        android:name="com.example.damh_android.ui.note.NoteFragment"
+        android:label="Note"
+        tools:layout="@layout/fragment_note" />
+
+    <fragment
+        android:id="@+id/nav_editProfile"
+        android:name="com.example.damh_android.ui.account.EditProfileFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/nav_changePwd"
+        android:name="com.example.damh_android.ui.account.ChangePasswordFragment"
+        android:label="Change Password"
+        tools:layout="@layout/fragment_change_pwd" />
 </navigation>
