@@ -243,14 +243,14 @@ public class NoteFragment extends Fragment {
                             alert.setTitle("Edit Note");
                             alert.setView(alertLayout);
                             alert.setCancelable(true);
-                            alert.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                            alert.setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
 
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(getContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Cancel", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                            alert.setNegativeButton("Edit", new DialogInterface.OnClickListener() {
+                            alert.setNegativeButton("EDIT", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     String user = etUsername.getText().toString();

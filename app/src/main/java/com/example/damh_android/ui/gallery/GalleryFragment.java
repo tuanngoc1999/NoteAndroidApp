@@ -57,7 +57,7 @@ public class GalleryFragment extends Fragment {
                 View alertLayout = inflater.inflate(R.layout.dialog_edit_save, null);
                 final EditText etUsername = (EditText) alertLayout.findViewById(R.id.et_Username);
                 AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setTitle("Category Form");
+                alert.setTitle("Add Category");
                 alert.setView(alertLayout);
                 alert.setCancelable(true);
                 alert.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
@@ -106,11 +106,11 @@ public class GalleryFragment extends Fragment {
                                     LinearLayout.LayoutParams.MATCH_PARENT);
                             input.setLayoutParams(lp);
                             alertDialog.setView(input);
-                            alertDialog.setTitle("Enter new name!");
-                            alertDialog.setPositiveButton("YES",
+                            alertDialog.setTitle("Edit Category");
+                            alertDialog.setNegativeButton("EDIT",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
-                                            String newName = input.getText().toString();
+                                            String newName = input.getText().toString().trim();
                                             if (newName.isEmpty()) {
                                                 input.setError("Enter category name");
                                                 input.requestFocus();
@@ -130,7 +130,7 @@ public class GalleryFragment extends Fragment {
                                         }
                                     });
 
-                            alertDialog.setNegativeButton("NO",
+                            alertDialog.setPositiveButton("CANCEL",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
                                             dialog.cancel();
